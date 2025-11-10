@@ -1,0 +1,39 @@
+{
+  "name": "app_sheet_backend",
+  "version": "1.0.0",
+  "description": "AppSheet Backend created with Node Express js and MySql database with sequelize database",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx sequelize db:migrate && nodemon app.js local",
+    "dev": "npx sequelize db:migrate && nodemon app.js development",
+    "prod": "npx sequelize db:migrate && nodemon app.js production",
+    "db-migrate": "npx sequelize db:migrate",
+    "create-migrate": "npx sequelize-cli migration:generate --name ",
+    "migrate:up": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "axios": "^1.5.0",
+    "calendar-link": "^2.5.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.9",
+    "dotenv": "^16.3.1",
+    "express": "^4.17.1",
+    "googleapis": "^105.0.0",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
+    "mysql2": "^2.2.5",
+    "nodemailer": "^6.9.4",
+    "sequelize": "^6.6.2",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.6.1"
+  }
+}
