@@ -1,0 +1,40 @@
+{
+  "local": {
+    "username": "digital7_admin_user",
+    "password": "Ec$yllFnr)9I",
+    "database": "digital7_appSheet_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "+00:00",
+    "logging": false,
+    "dateTimeZone": "Europe/Lisbon",
+    "GOOGLE_SMTP_HOST": "smtp.gmail.com",
+    "GOOGLE_SMTP_PORT": 587,
+    "GOOGLE_SMTP_EMAIL": "lino@treinacom.pt",
+    "GOOGLE_SMTP_PASS": "inbk zmdi dzfc goeo",
+    "GOOGLE_API_KEY": "AIzaSyBSapar0B_gZkln3LzP79r5_7KB42qZpfc",
+    "GOOGLE_VERSION": "v3",
+    "GOOGLE_SERVICE_CLIENT_ID": "796792332343-340223m80bgvdficl15bkbm2b7293ig9.apps.googleusercontent.com",
+    "GOOGLE_SERVICE_CLIENT_SECRET": "",
+    "GOOGLE_SERVICE_REDIRECT_URL": "https://digital2fit.com/booking/redirectURL"
+  },
+  "production": {
+    "username": "digital7_admin_user",
+    "password": "Ec$yllFnr)9I",
+    "database": "digital7_appSheet_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "+00:00",
+    "logging": false,
+    "dateTimeZone": "Europe/Lisbon",
+    "GOOGLE_SMTP_HOST": "smtp.gmail.com",
+    "GOOGLE_SMTP_PORT": 587,
+    "GOOGLE_SMTP_EMAIL": "lino@treinacom.pt",
+    "GOOGLE_SMTP_PASS": "inbk zmdi dzfc goeo",
+    "GOOGLE_API_KEY": "AIzaSyBSapar0B_gZkln3LzP79r5_7KB42qZpfc",
+    "GOOGLE_VERSION": "v3",
+    "GOOGLE_SERVICE_CLIENT_ID": "796792332343-340223m80bgvdficl15bkbm2b7293ig9.apps.googleusercontent.com",
+    "GOOGLE_SERVICE_CLIENT_SECRET": "",
+    "GOOGLE_SERVICE_REDIRECT_URL": "https://digital2fit.com/booking/redirectURL"
+  }
+}
