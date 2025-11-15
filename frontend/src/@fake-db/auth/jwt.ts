@@ -57,6 +57,7 @@ mock.onPost('/jwt/login').reply(request => {
 
     return [200, response]
   } else {
+    console.log(user);
     error = {
       email: ['email or Password is Invalid']
     }

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'src/@core/utils/axios'
 
 const API_URL = process.env.NEXT_PUBLIC_APP_URL + 'user'
 
