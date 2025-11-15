@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = "https://digital2fit.com/api/" + 'pricing'
+const API_URL = process.env.NEXT_PUBLIC_APP_URL + 'pricing'
 
 export const getAllPricing = () => {
   return axios.get(API_URL + '/all')

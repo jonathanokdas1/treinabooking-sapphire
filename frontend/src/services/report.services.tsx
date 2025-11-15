@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const API_URL = "https://digital2fit.com/api/" + 'report';
-const API_URL1 = "https://digital2fit.com/api/" + 'user';
+const API_URL = process.env.NEXT_PUBLIC_APP_URL + 'report'
+const API_URL1 = process.env.NEXT_PUBLIC_APP_URL + 'user'
 
 export const getAll = (reqData: Object) => {
     return axios.get(API_URL + '/all', { params: reqData })

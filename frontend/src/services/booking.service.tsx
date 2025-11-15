@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = "https://digital2fit.com/api/" + 'booking'
+const API_URL = process.env.NEXT_PUBLIC_APP_URL + 'booking'
 
 export const addBooking = (reqData: Object) => {
   return axios.post(API_URL + '', reqData)
