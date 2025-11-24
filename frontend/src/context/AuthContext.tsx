@@ -42,8 +42,9 @@ const AuthProvider = ({ children }: Props) => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
       if (storedToken) {
         setLoading(true)
+        const API_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8000/';
         await axios
-          .get(authConfig.meEndpoint, {
+          .get(API_URL + authConfig.loginEndpoint, {
             headers: {
               Authorization: storedToken
             }
@@ -72,8 +73,9 @@ const AuthProvider = ({ children }: Props) => {
   }, [])
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    const API_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8000/';
     axios
-      .post(authConfig.loginEndpoint, params)
+      .post(API_URL + authConfig.loginEndpoint, params)
       .then(async response => {
         params.rememberMe
           ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)

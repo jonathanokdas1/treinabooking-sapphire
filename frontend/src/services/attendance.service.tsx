@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios from 'src/@core/utils/axios'
 
-const API_URL = "https://digital2fit.com/api/" + 'attendance/'
+const API_URL = process.env.NEXT_PUBLIC_APP_URL + 'attendance/'
 
 export const addAttendance = (reqData: Object) => {
   return axios.post(API_URL + '', reqData)

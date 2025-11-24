@@ -23,24 +23,23 @@ const AuthGuard = (props: AuthGuardProps) => {
         return
       }
 
-      // if (auth.user === null && !window.localStorage.getItem('userData')) {
-        // if (router.asPath !== '/') {
-        //   router.replace({
-        //     pathname: '/login',
-        //     query: { returnUrl: router.asPath }
-        //   })
-        // } else {
-        //   router.replace('/login')
-        // }
-        // }
+      if (auth.user === null && !window.localStorage.getItem('userData')) {
+        if (router.asPath !== '/') {
+          router.replace({
+            pathname: '/login',
+            query: { returnUrl: router.asPath }
+          })
+        } else {
+          router.replace('/login')
+        }
+      }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [router.route]
+    [router.route, auth.user, router]
   )
 
-  // if (auth.loading || auth.user === null) {
-  //   return fallback
-  // }
+  if (auth.loading || auth.user === null) {
+    return fallback
+  }
 
   return <>{children}</>
 }

@@ -27,11 +27,6 @@ const VerticalLayoutWrapper = styled('div')({
   display: 'flex'
 })
 
-const HideNavBar = styled('div')`
-  @media (min-width: 1200px) {
-    display: none;
-  }
-`;
 const MainContentWrapper = styled(Box)<BoxProps>({
   flexGrow: 1,
   minWidth: 0,
@@ -96,14 +91,12 @@ const VerticalLayout = (props: LayoutProps) => {
           sx={{ ...(contentHeightFixed && { maxHeight: '100vh' }) }}
         >
           {/* AppBar Component */}
-          <HideNavBar>
           <AppBar
-            toggleNavVisibility={toggleNavVisibility}
-            appBarContent={verticalLayoutProps.appBar?.content}
-            appBarProps={verticalLayoutProps.appBar?.componentProps}
-            {...props}
-          />
-          </HideNavBar>
+              toggleNavVisibility={toggleNavVisibility}
+              appBarContent={verticalLayoutProps.appBar?.content}
+              appBarProps={verticalLayoutProps.appBar?.componentProps}
+              {...props}
+            />
           {/* Content */}
           <ContentWrapper
             className='layout-page-content'
