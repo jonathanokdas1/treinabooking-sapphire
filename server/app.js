@@ -16,6 +16,7 @@ const userWalletRoutes = require('./Routes/WalletRoutes');
 const reportRoutes = require('./Routes/ReportRoutes');
 const pricingRoutes = require('./Routes/SessionPricingRoutes');
 const BookingRoutes = require('./Routes/BookingRoutes');
+const authRoutes = require('./Routes/authRoute');
 
 const accessLog = require('./middleware/accessLog');
 
@@ -29,8 +30,9 @@ app.use('/wallet', userWalletRoutes);
 app.use('/report', reportRoutes);
 app.use('/pricing', pricingRoutes);
 app.use('/booking', BookingRoutes);
+app.use('/auth', authRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Listening at http://localhost:${PORT}`);
 });
 
