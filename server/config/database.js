@@ -1,9 +1,9 @@
 module.exports = {
   local: {
-    username: "root",
-    password: "gabriel1995",
-    database: "digital7_appSheet_development",
-    host: "127.0.0.1",
+    username: process.env.DB_USER || "root",
+    password: process.env.DB_PASS || "gabriel1995",
+    database: process.env.DB_NAME || "digital7_appSheet_development",
+    host: process.env.DB_HOST || "127.0.0.1",
     dialect: "mysql",
     timezone: "+00:00",
     logging: false,
@@ -19,10 +19,10 @@ module.exports = {
     GOOGLE_SERVICE_REDIRECT_URL: "https://digital2fit.com/booking/redirectURL"
   },
   development: {
-    username: "root",
-    password: "gabriel1995",
-    database: "digital7_appSheet_development",
-    host: "127.0.0.1",
+    username: process.env.DB_USER || "root",
+    password: process.env.DB_PASS || "gabriel1995",
+    database: process.env.DB_NAME || "digital7_appSheet_development",
+    host: process.env.DB_HOST || "127.0.0.1",
     dialect: "mysql",
     timezone: "+00:00",
     logging: false,
@@ -38,10 +38,10 @@ module.exports = {
     GOOGLE_SERVICE_REDIRECT_URL: "https://digital2fit.com/booking/redirectURL"
   },
   production: {
-    username: "digital7_admin_user",
-    password: "Ec$yllFnr)9I",
-    database: "digital7_appSheet_development",
-    host: "127.0.0.1",
+    username: process.env.DB_USER || "digital7_admin_user",
+    password: process.env.DB_PASS || "Ec$yllFnr)9I",
+    database: process.env.DB_NAME || "digital7_appSheet_development",
+    host: process.env.DB_HOST || "127.0.0.1", 
     dialect: "mysql",
     timezone: "+00:00",
     logging: false,
