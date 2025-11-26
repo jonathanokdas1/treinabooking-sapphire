@@ -2,7 +2,8 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8000/'
+  // MUDANÇA AQUI: Link direto da API para corrigir o erro de build
+  baseURL: 'https://api.digital2fit.com/'
 })
 
 instance.interceptors.request.use(config => {
