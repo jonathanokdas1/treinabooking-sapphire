@@ -11,6 +11,7 @@ COPY package*.json ./
 # ==== STAGE: Dependencies ====
 FROM base AS deps
 RUN npm install --legacy-peer-deps
+RUN npm install immutable --legacy-peer-deps
 
 # ==== STAGE: Builder ====
 FROM base AS builder
