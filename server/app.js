@@ -5,7 +5,7 @@ require('dotenv').config({
 const express = require('express');
 const bodyParser = require('body-parser');
 const env = process.env.NODE_ENV || 'local';
-const config = require(__dirname + '/config/config.json')[env];
+const config = require(__dirname + '/config/database.js')[env];
 const cors = require('cors');
 const app = express();
 const PORT = 8000;
