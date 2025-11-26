@@ -12,14 +12,14 @@ services:
       - NODE_ENV=production
       - DB_HOST=host.docker.internal
       - DB_PORT=3306
-      - DB_NAME=${DB_NAME}  # Preencha no Portainer
-      - DB_USER=${DB_USER}  # Preencha no Portainer
-      - DB_PASS=${DB_PASS}  # Preencha no Portainer
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
-      - treinabooking-network # Comunicação interna
-      - traefik_public        # Comunicação com o Traefik
+      - treinabooking-network
+      - traefik_public
     deploy:
       resources:
         limits:
@@ -27,7 +27,6 @@ services:
           memory: 512M
     labels:
       - "traefik.enable=true"
-      # Ajuste o domínio da API aqui
       - "traefik.http.routers.booking_backend.rule=Host(`api.digital2fit.com`)"
       - "traefik.http.routers.booking_backend.entrypoints=websecure"
       - "traefik.http.routers.booking_backend.tls.certresolver=le"
@@ -49,13 +48,12 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      # Aponta para a API pública segura
       - NEXT_PUBLIC_APP_URL=https://api.digital2fit.com
-      - NEXT_PUBLIC_JWT_SECRET=${JWT_SECRET} # Preencha no Portainer
+      - NEXT_PUBLIC_JWT_SECRET=${JWT_SECRET}
       - PORT=3003
+    # AQUI ESTÁ A CORREÇÃO:
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - treinabooking-network
       - traefik_public
@@ -66,8 +64,7 @@ services:
           memory: 512M
     labels:
       - "traefik.enable=true"
-      # Ajuste o domínio do Site aqui
-      - "traefik.http.routers.booking_frontend.rule=Host(`booking.digital2fit.com`)"
+      - "traefik.http.routers.booking_frontend.rule=Host(`digital2fit.com`)"
       - "traefik.http.routers.booking_frontend.entrypoints=websecure"
       - "traefik.http.routers.booking_frontend.tls.certresolver=le"
       - "traefik.http.routers.booking_frontend.service=booking_frontend"
@@ -83,4 +80,4 @@ networks:
   treinabooking-network:
     driver: bridge
   traefik_public:
-    external: true  # Usa a mesma rede do seu N8N
+    external: true
