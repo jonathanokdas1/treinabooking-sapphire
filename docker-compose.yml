@@ -1,26 +1,38 @@
 version: '3.8'
 
 services:
-  # Backend Node.js
+  # --- BACKEND (API) ---
   backend:
     build:
       context: ./server
       dockerfile: Dockerfile
     container_name: treinabooking-backend
     restart: unless-stopped
-    ports:
-      - "8000:8000"
     environment:
       - NODE_ENV=production
-      - DB_HOST=host.docker.internal  # Acessa MySQL do host
+      - DB_HOST=host.docker.internal
       - DB_PORT=3306
-      - DB_NAME=digital7_appSheet_development
-      - DB_USER=digital7_admin_user
-      - DB_PASS=Ec$$yllFnr)9I
+      - DB_NAME=${DB_NAME}  # Preencha no Portainer
+      - DB_USER=${DB_USER}  # Preencha no Portainer
+      - DB_PASS=${DB_PASS}  # Preencha no Portainer
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
-      - treinabooking-network
+      - treinabooking-network # Comunicação interna
+      - traefik_public        # Comunicação com o Traefik
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    labels:
+      - "traefik.enable=true"
+      # Ajuste o domínio da API aqui
+      - "traefik.http.routers.booking_backend.rule=Host(`api.digital2fit.com`)"
+      - "traefik.http.routers.booking_backend.entrypoints=websecure"
+      - "traefik.http.routers.booking_backend.tls.certresolver=le"
+      - "traefik.http.routers.booking_backend.service=booking_backend"
+      - "traefik.http.services.booking_backend.loadbalancer.server.port=8000"
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8000/user/all"]
       interval: 30s
@@ -28,27 +40,38 @@ services:
       retries: 3
       start_period: 40s
 
-  # Frontend Next.js
+  # --- FRONTEND (SITE) ---
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: treinabooking-frontend
     restart: unless-stopped
-    ports:
-      - "3003:3003"
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_JWT_EXPIRATION=5m
-      - NEXT_PUBLIC_JWT_SECRET=dd5f3089-40c3-403d-af14-d0c228b05cb4
-      - NEXT_PUBLIC_JWT_REFRESH_TOKEN_SECRET=7c4c1c50-3230-45bf-9eae-c9b2e401c767
-      - NEXT_PUBLIC_APP_URL=https://digital2fit.com/api/
+      # Aponta para a API pública segura
+      - NEXT_PUBLIC_APP_URL=https://api.digital2fit.com
+      - NEXT_PUBLIC_JWT_SECRET=${JWT_SECRET} # Preencha no Portainer
       - PORT=3003
     depends_on:
       backend:
         condition: service_healthy
     networks:
       - treinabooking-network
+      - traefik_public
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    labels:
+      - "traefik.enable=true"
+      # Ajuste o domínio do Site aqui
+      - "traefik.http.routers.booking_frontend.rule=Host(`booking.digital2fit.com`)"
+      - "traefik.http.routers.booking_frontend.entrypoints=websecure"
+      - "traefik.http.routers.booking_frontend.tls.certresolver=le"
+      - "traefik.http.routers.booking_frontend.service=booking_frontend"
+      - "traefik.http.services.booking_frontend.loadbalancer.server.port=3003"
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3003"]
       interval: 30s
@@ -59,3 +82,5 @@ services:
 networks:
   treinabooking-network:
     driver: bridge
+  traefik_public:
+    external: true  # Usa a mesma rede do seu N8N
