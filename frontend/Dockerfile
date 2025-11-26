@@ -10,7 +10,7 @@ COPY package*.json ./
 
 # ==== STAGE: Dependencies ====
 FROM base AS deps
-RUN npm ci
+RUN npm install --legacy-peer-deps
 
 # ==== STAGE: Builder ====
 FROM base AS builder
