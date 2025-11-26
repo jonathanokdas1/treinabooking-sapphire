@@ -19,11 +19,20 @@ FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Desabilitar telemetria do Next.js
-ENV NEXT_TELEMETRY_DISABLED 1
+# Desabilitar telemetria
+ENV NEXT_TELEMETRY_DISABLED=1
+# Ignorar certificados SSL
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 
-# Ignorar certificados SSL durante build
-ENV NODE_TLS_REJECT_UNAUTHORIZED 0
+# --- AQUI ESTÁ A CORREÇÃO (TIRO DE CANHÃO) ---
+# Aceitamos qualquer uma das duas variaveis
+ARG NEXT_PUBLIC_APP_URL
+ARG NEXT_PUBLIC_API_URL
+
+# Injetamos nas duas para garantir
+ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_APP_URL
+# ---------------------------------------------
 
 # Build
 RUN npm run build
@@ -33,14 +42,12 @@ FROM base AS runner
 
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Criar usuário não-root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar arquivos necessários
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
@@ -49,7 +56,7 @@ USER nextjs
 
 EXPOSE 3003
 
-ENV PORT 3003
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3003
+ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "server.js"]
